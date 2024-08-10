@@ -13,6 +13,8 @@ namespace Proyecto.Data
         public DbSet<PurchaseHistory> PurchaseHistories { get; set; }
         public DbSet<ContactModel> Contacts { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<Comida> Comidas { get; set; } // Agregado
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -51,6 +53,23 @@ namespace Proyecto.Data
                 tb.HasOne(col => col.Usuario)
                   .WithMany(u => u.PurchaseHistory)
                   .HasForeignKey(col => col.UserId);
+            });
+
+            modelBuilder.Entity<Comida>(tb =>
+            {
+                tb.HasKey(col => col.IdComida);
+                tb.Property(col => col.IdComida)
+                  .UseIdentityColumn()
+                  .ValueGeneratedOnAdd();
+
+                tb.Property(col => col.Nombre).HasMaxLength(100).IsRequired();
+                tb.Property(col => col.Descripcion).HasMaxLength(255);
+                tb.Property(col => col.Precio).HasColumnType("decimal(18,2)").IsRequired();
+                tb.Property(col => col.Categoria).HasMaxLength(50);
+                tb.Property(col => col.ImagenUrl).HasMaxLength(255);
+                tb.Property(col => col.Cantidad).HasColumnType("int").IsRequired();
+
+                tb.ToTable("Comida");
             });
         }
     }

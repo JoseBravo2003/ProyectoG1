@@ -1,51 +1,67 @@
-﻿
-@using System.Security.Claims;
-
-@{
-    ViewData["Title"] = "Home Page";
-}
-
-<style>
-    .welcome-container {
-        background-color: #f8f9fa;
-        padding: 50px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        margin: 50px auto;
-        max-width: 600px;
-        text-align: center;
-    }
-
-    .welcome-container h1 {
-        font-size: 2.5rem;
-        color: #343a40;
-    }
-
-    .welcome-container p {
-        font-size: 1.2rem;
-        color: #6c757d;
-    }
-
-    .welcome-container a {
-        color: #007bff;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .welcome-container a:hover {
-        text-decoration: underline;
-    }
-</style>
-
-<div class="welcome-container">
-
-    @if (User.Identity!.IsAuthenticated)
-    {
-        <h1 class="display-4">Welcome
-            @User.Claims.Where(c=> c.Type == ClaimTypes.Name).Select(c=> c.Value).SingleOrDefault()
-        </h1>
-    }
-
-   
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .section-title {
+            margin-bottom: 1.5rem;
+        }
+        .story-image-container img,
+        .mission-image-container img {
+            width: 100%;
+            max-width: 300px; /* Tamaño máximo de las imágenes */
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .story-image-container img:hover,
+        .mission-image-container img:hover {
+            transform: scale(1.1); /* Efecto de zoom */
+            opacity: 0.8; /* Efecto de desvanecimiento */
+        }
+        .story-image-container,
+        .mission-image-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        /* Animación de desvanecimiento de entrada */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2 class="section-title">Our Story</h2>
+                <div class="story-image-container">
+                    <!-- Imagen actualizada para "Our Story" con animación -->
+                    <img src="https://img.freepik.com/foto-gratis/tacos-tortilla-amarillo-hamburguesa_1150-7027.jpg" alt="Our Story" class="img-fluid rounded fade-in">
+                </div>
+                <p>Welcome to [Restaurant Name], where we bring the best of online food ordering right to your door. Our journey began with a passion for delicious food and a commitment to exceptional service. We aim to make every meal an unforgettable experience.</p>
+                <p>Our team works tirelessly to ensure that every order is prepared with the highest quality ingredients and delivered with care. We believe in bringing people together through great food and exceptional service.</p>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="section-title">Our Mission</h2>
+                <div class="mission-image-container">
+                    <!-- Imagen para "Our Mission" con animación -->
+                    <img src="https://img.freepik.com/foto-gratis/hot-dog-ternera-parrilla-snack-ketchup-ia-generativa_188544-7829.jpg" alt="Our Mission" class="img-fluid rounded fade-in">
+                </div>
+                <p>At [Restaurant Name], our mission is simple: to provide delicious, high-quality food to our customers while ensuring a seamless and enjoyable online ordering experience. We strive to be the best in the industry by constantly innovating and improving our service.</p>
+                <p>We are committed to sustainability and sourcing our ingredients responsibly. Our goal is to create a positive impact on our community and the environment through our business practices.</p>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

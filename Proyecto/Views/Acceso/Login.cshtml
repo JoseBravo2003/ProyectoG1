@@ -3,29 +3,96 @@
     Layout = null;
 }
 
-<html>
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/style/login.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        /* Estilos generales para el fondo y el texto */
+        body {
+            background-color: #343a40; /* Fondo oscuro */
+            color: #f8f9fa; /* Texto claro */
+            font-family: Arial, sans-serif; /* Fuente general */
+        }
 
+        /* Estilo para la tarjeta de inicio de sesión */
+        .card {
+            border-radius: 0.5rem; /* Bordes redondeados */
+            background-color: #495057; /* Fondo oscuro para la tarjeta */
+            border: none; /* Sin borde */
+        }
+
+        .card-header {
+            background-color: #343a40; /* Fondo más oscuro para el encabezado */
+            color: #f8f9fa; /* Texto claro en el encabezado */
+        }
+
+        /* Estilo para el botón de inicio de sesión */
+        .btn-primary {
+            background-color: #007bff; /* Color azul del botón */
+            border-color: #007bff; /* Borde del botón */
+        }
+
+        /* Estilo para el enlace de registro */
+        a.text-primary {
+            color: #007bff; /* Color azul */
+        }
+
+            a.text-primary:hover {
+                color: #0056b3; /* Color azul más oscuro al pasar el ratón */
+            }
+
+        /* Estilo para los campos de entrada */
+        .form-control {
+            background-color: #495057; /* Fondo de los campos de entrada */
+            color: #f8f9fa; /* Texto claro en los campos de entrada */
+            border: 1px solid #ced4da; /* Borde gris claro */
+        }
+
+            .form-control:focus {
+                border-color: #007bff; /* Borde azul al enfocar */
+                box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); /* Sombra azul al enfocar */
+            }
+
+        /* Estilo para la alerta de error */
+        .alert-danger {
+            background-color: #dc3545; /* Fondo rojo de la alerta */
+            color: #fff; /* Texto blanco en la alerta */
+        }
+
+        /* Estilo para el contenedor central */
+        .container {
+            max-width: 500px; /* Ancho máximo del contenedor */
+        }
+
+        /* Estilo para el espacio entre elementos */
+        .mb-3 {
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
 <body>
 
     <div class="row mt-5 justify-content-center">
-        <div class="col-sm-4">
+        <div class="col-sm-8 col-md-6 col-lg-4">
             <div class="card">
                 <div class="card-header">
                     Inicio de Sesion
                 </div>
                 <div class="card-body">
-
-                    <form asp-controller="Acceso" asp-action="Login" method="post">                      
-                        <input class="form-control mb-3" type="text" placeholder="Correo" required asp-for="Correo" />
-                        <input class="form-control mb-3" type="password" placeholder="Contraseña" required asp-for="clave" />             
+                    <form asp-controller="Acceso" asp-action="Login" method="post">
+                        <div class="mb-3">
+                            <input class="form-control form-control-lg" type="text" placeholder="Correo" required asp-for="Correo" />
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-control form-control-lg" type="password" placeholder="Contraseña" required asp-for="clave" />
+                        </div>
                         <div class="d-grid gap-2 mb-3">
-                            <button class="btn btn-primary" type="submit">Iniciar Sesion</button>
+                            <button class="btn btn-primary btn-lg" type="submit">Iniciar Sesion</button>
                         </div>
 
                         @if (ViewData["Mensaje"] != null)
@@ -33,26 +100,16 @@
                             <div class="alert alert-danger" role="alert">
                                 @ViewData["Mensaje"]
                             </div>
-
                         }
 
-                        ¿No tienes una cuenta? <a asp-controller="Acceso" asp-action="Registrarse">Has tu registro!</a>
-
-
+                        <p class="text-center">¿No tienes una cuenta? <a href="@Url.Action("Registrarse", "Acceso")" class="text-primary">Haz tu registro!</a></p>
                     </form>
-
-
                 </div>
             </div>
-
-
         </div>
-
     </div>
-
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

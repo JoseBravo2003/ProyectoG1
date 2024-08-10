@@ -1,0 +1,58 @@
+﻿@model Proyecto.Models.Comida
+
+@{
+    ViewData["Title"] = "Crear";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>Comida</h4>
+<hr />
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Nombre" class="control-label"></label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Descripcion" class="control-label"></label>
+        <input asp-for="Descripcion" class="form-control" />
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Precio" class="control-label"></label>
+        <input asp-for="Precio" class="form-control" />
+        <span asp-validation-for="Precio" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Categoria" class="control-label"></label>
+        <input asp-for="Categoria" class="form-control" />
+        <span asp-validation-for="Categoria" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImagenUrl" class="control-label"></label>
+        <input asp-for="ImagenUrl" class="form-control" id="imageUrl" />
+        <span asp-validation-for="ImagenUrl" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Cantidad" class="control-label"></label>
+        <input asp-for="Cantidad" class="form-control" type="number" min="0" />
+        <span asp-validation-for="Cantidad" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Crear" class="btn btn-primary" />
+    </div>
+</form>
+
+<!-- Vista previa de la imagen (opcional) -->
+<div class="form-group">
+    <label for="imagePreview" class="control-label">Vista previa de la imagen</label>
+    <img id="imagePreview" src="#" alt="Vista previa de la imagen" style="display: none; max-width: 200px; max-height: 200px;" />
+</div>
+
+<script>
+    document.getElementById('imageUrl').addEventListener('change', function (event) {
+        const file = event.target.value;
+        const preview = document.getElementById('imagePreview');
+        if (file) {
+            preview.src = file

@@ -1,0 +1,29 @@
+﻿@model Proyecto.Models.Comida
+
+@{
+    ViewData["Title"] = "Eliminar";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>¿Estás seguro de que deseas eliminar esta comida?</h4>
+<hr />
+<div class="card" style="width: 18rem;">
+    @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+    {
+        <img src="@Model.ImagenUrl" class="card-img-top" alt="@Model.Nombre" />
+    }
+    <div class="card-body">
+        <h5 class="card-title">@Model.Nombre</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@Model.Categoria</h6>
+        <p class="card-text">@Model.Descripcion</p>
+        <p class="card-text"><strong>Precio:</strong> @Model.Precio.ToString("C")</p>
+        <p class="card-text"><strong>Cantidad disponible:</strong> @Model.Cantidad</p>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="IdComida" />
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+            <a href="@Url.Action("Index")" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>

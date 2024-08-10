@@ -1,0 +1,23 @@
+﻿@model Proyecto.Models.Comida
+
+@{
+    ViewData["Title"] = "Detalles";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="card" style="width: 18rem;">
+    @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+    {
+        <img src="@Model.ImagenUrl" class="card-img-top" alt="@Model.Nombre" />
+    }
+    <div class="card-body">
+        <h5 class="card-title">@Model.Nombre</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@Model.Categoria</h6>
+        <p class="card-text">@Model.Descripcion</p>
+        <p class="card-text"><strong>Precio:</strong> @Model.Precio.ToString("C")</p>
+        <p class="card-text"><strong>Cantidad disponible:</strong> @Model.Cantidad</p>
+        <a href="@Url.Action("Edit", new { id = Model.IdComida })" class="btn btn-warning">Editar</a>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Volver</a>
+    </div>
+</div>
