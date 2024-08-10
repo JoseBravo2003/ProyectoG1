@@ -1,0 +1,95 @@
+﻿@model Proyecto.Models.Usuario
+
+@{
+    ViewData["Title"] = "User Profile";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        .profile-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container my-5">
+        <div class="profile-container">
+            <ul class="nav nav-tabs" id="profileTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="basic-info-tab" data-bs-toggle="tab" href="#basic-info" role="tab" aria-controls="basic-info" aria-selected="true">Basic Info</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="purchase-history-tab" data-bs-toggle="tab" href="#purchase-history" role="tab" aria-controls="purchase-history" aria-selected="false">Purchase History</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="profileTabContent">
+                <div class="tab-pane fade show active" id="basic-info" role="tabpanel" aria-labelledby="basic-info-tab">
+                    <h3 class="text-center my-4">Basic Info</h3>
+                    <form>
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="fullName" value="@Model.NombreCompleto" readonly />
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" value="@Model.Correo" readonly />
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" value="@Model.clave" readonly />
+                        </div>
+                        <a asp-controller="Profile" asp-action="EditUser" class="btn btn-primary">Edit Profile</a>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="purchase-history" role="tabpanel" aria-labelledby="purchase-history-tab">
+                    <h3 class="text-center my-4">Purchase History</h3>
+                    <a href="@Url.Action("DownloadUserProfilePdf", "Profile")" class="btn btn-primary mb-4">Download PDF</a>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Payment Type</th>
+                                <th>Card Number</th>
+                                <th>Product Name</th>
+                                <th>Unit Price</th>
+                                <th>Qty</th>
+                                <th>Total Price</th>
+                                <th>Order ID</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var purchase in Model.PurchaseHistory)
+                            {
+                                <tr>
+                                    <td>@purchase.PaymentType</td>
+                                    <td>@purchase.MaskedCardNumber</td>
+                                    <td>@purchase.ProductName</td>
+                                    <td>@purchase.UnitPrice.ToString("C")</td>
+                                    <td>@purchase.Qty</td>
+                                    <td>@purchase.TotalPrice.ToString("C")</td>
+                                    <td>@purchase.OrderId</td>
+                                    <td>@purchase.Status</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

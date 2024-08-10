@@ -1,0 +1,168 @@
+﻿@{
+    ViewData["Title"] = "Order Payment";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        .payment-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            text-align: left;
+        }
+
+        .payment-method {
+            display: none;
+        }
+
+            .payment-method.active {
+                display: block;
+            }
+
+        .main-content {
+            padding-top: 56px;
+            min-height: calc(100vh - 56px - 100px);
+        }
+
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            border-top: 1px solid #e7e7e7;
+        }
+
+        .input-icon {
+            position: relative;
+        }
+
+            .input-icon i {
+                position: absolute;
+                top: 50%;
+                left: 10px;
+                transform: translateY(-50%);
+                color: #6c757d;
+            }
+
+            .input-icon input {
+                padding-left: 40px;
+            }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="main-content">
+        <div class="container text-center">
+            <h2 class="mb-4">Order Payment</h2>
+            <div class="payment-container">
+                <div class="form-group mb-4">
+                    <label for="paymentMethod">Select Payment Method:</label>
+                    <div class="d-flex justify-content-around">
+                        <div>
+                            <input type="radio" id="card" name="PaymentType" value="Card" checked />
+                            <label for="card">Card</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="cash" name="PaymentType" value="Cash" />
+                            <label for="cash">Cash</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="cardPayment" class="payment-method active">
+                    <h3 class="text-center mb-3">Pay with Card</h3>
+                    <form asp-controller="Payment" asp-action="Submit" method="post">
+                        <div class="mb-3">
+                            <label for="cardOwner" class="form-label">Card Owner</label>
+                            <div class="input-icon">
+                                <i class="fas fa-user"></i>
+                                <input type="text" class="form-control" id="cardOwner" name="CardOwner" placeholder="Card Owner" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cardNumber" class="form-label">Card Number</label>
+                            <div class="input-icon">
+                                <i class="fas fa-credit-card"></i>
+                                <input type="text" class="form-control" id="cardNumber" name="CardNumber" placeholder="Card Number" maxlength="16" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <div class="input-icon">
+                                <i class="fas fa-lock"></i>
+                                <input type="text" class="form-control" id="cvv" name="CVV" placeholder="CVV" maxlength="3" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="expirationDate" class="form-label">Expiration Date</label>
+                            <div class="input-icon">
+                                <i class="fas fa-calendar"></i>
+                                <input type="text" class="form-control" id="expirationDate" name="ExpirationDate" placeholder="MM/YY" maxlength="5" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="deliveryAddress" class="form-label">Delivery Address</label>
+                            <div class="input-icon">
+                                <i class="fas fa-home"></i>
+                                <input type="text" class="form-control" id="deliveryAddress" name="DeliveryAddress" placeholder="Delivery Address" />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Confirm Payment</button>
+                    </form>
+                </div>
+                <div id="cashPayment" class="payment-method">
+                    <h3 class="text-center mb-3">Pay with Cash</h3>
+                    <form asp-controller="Payment" asp-action="SubmitCash" method="post">
+                        <div class="mb-3">
+                            <label for="deliveryAddressCash" class="form-label">Delivery Address</label>
+                            <div class="input-icon">
+                                <i class="fas fa-home"></i>
+                                <input type="text" class="form-control" id="deliveryAddressCash" name="DeliveryAddress" placeholder="Delivery Address" />
+                            </div>
+                        </div>
+                        <input type="hidden" name="CardOwner" value="" />
+                        <input type="hidden" name="CardNumber" value="" />
+                        <input type="hidden" name="CVV" value="" />
+                        <input type="hidden" name="ExpirationDate" value="" />
+                        <input type="hidden" name="PaymentType" value="Cash" />
+                        <button type="submit" class="btn btn-primary w-100">Confirm Order</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        $(document).ready(function () {
+            $('input[name="PaymentType"]').change(function () {
+                if ($('#card').is(':checked')) {
+                    $('#cardPayment').addClass('active');
+                    $('#cashPayment').removeClass('active');
+                } else {
+                    $('#cardPayment').removeClass('active');
+                    $('#cashPayment').addClass('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

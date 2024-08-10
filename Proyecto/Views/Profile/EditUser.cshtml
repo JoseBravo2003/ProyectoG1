@@ -1,0 +1,55 @@
+﻿@model Proyecto.Models.Usuario
+
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-5">
+        <div class="form-container">
+            <h2>Edit User Profile</h2>
+            <form asp-action="EditUser" asp-controller="Profile" method="post">
+                @Html.AntiForgeryToken() <!-- Token anti-falsificación -->
+                <!-- Campo oculto para el ID del usuario -->
+                <input type="hidden" asp-for="IdUsuario" />
+
+                <div class="mb-3">
+                    <label for="NombreCompleto" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="NombreCompleto" asp-for="NombreCompleto" />
+                </div>
+                <div class="mb-3">
+                    <label for="Correo" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="Correo" asp-for="Correo" />
+                </div>
+                <div class="mb-3">
+                    <label for="clave" class="form-label">Password</label>
+                    <input type="text" class="form-control" id="clave" asp-for="clave" placeholder="Leave empty to keep current password" />
+                </div>
+
+                <!-- Botón para guardar los cambios -->
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
