@@ -1,0 +1,31 @@
+﻿@model Proyecto.Models.Usuario
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container mt-5">
+    <h1 class="mb-4">@ViewData["Title"] Usuario</h1>
+
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0">Usuario Details</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-4">Nombre Completo</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.NombreCompleto)</dd>
+
+                <dt class="col-sm-4">Correo</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Correo)</dd>
+
+                <dt class="col-sm-4">Clave</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.clave)</dd>
+            </dl>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Edit" asp-route-id="@Model?.IdUsuario" class="btn btn-warning">Edit</a>
+            <a asp-action="Index" class="btn btn-secondary ml-2">Back to List</a>
+        </div>
+    </div>
+</div>

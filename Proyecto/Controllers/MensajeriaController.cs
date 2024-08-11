@@ -10,22 +10,22 @@ using Proyecto.Models;
 
 namespace Proyecto.Controllers
 {
-    public class UsuariosController : Controller
+    public class MensajeriaController : Controller
     {
         private readonly AppDBContext _context;
 
-        public UsuariosController(AppDBContext context)
+        public MensajeriaController(AppDBContext context)
         {
             _context = context;
         }
 
-        // GET: Usuarios
+        // GET: Mensajeria
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Usuarios.ToListAsync());
+            return View(await _context.Contacts.ToListAsync());
         }
 
-        // GET: Usuarios/Details/5
+        // GET: Mensajeria/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,35 @@ namespace Proyecto.Controllers
                 return NotFound();
             }
 
-            var usuario = await _context.Usuarios
-                .FirstOrDefaultAsync(m => m.IdUsuario == id);
-            if (usuario == null)
+            var contactModel = await _context.Contacts
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (contactModel == null)
             {
                 return NotFound();
             }
 
-            return View(usuario);
+            return View(contactModel);
         }
 
-        // GET: Usuarios/Create
+        // GET: Mensajeria/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Usuarios/Create
+        // POST: Mensajeria/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdUsuario,NombreCompleto,Correo,clave")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("Id,Name,Email,Subject,Message")] ContactModel contactModel)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(usuario);
+                _context.Add(contactModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(usuario);
         }
 
-        // GET: Usuarios/Edit/5
+        // GET: Mensajeria/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,36 +69,33 @@ namespace Proyecto.Controllers
                 return NotFound();
             }
 
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario == null)
+            var contactModel = await _context.Contacts.FindAsync(id);
+            if (contactModel == null)
             {
                 return NotFound();
             }
-            return View(usuario);
+            return View(contactModel);
         }
 
-        // POST: Usuarios/Edit/5
+        // POST: Mensajeria/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,NombreCompleto,Correo,clave")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Subject,Message")] ContactModel contactModel)
         {
-            if (id != usuario.IdUsuario)
+            if (id != contactModel.Id)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
-            {
                 try
                 {
-                    _context.Update(usuario);
+                    _context.Update(contactModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UsuarioExists(usuario.IdUsuario))
+                    if (!ContactModelExists(contactModel.Id))
                     {
                         return NotFound();
                     }
@@ -112,11 +105,9 @@ namespace Proyecto.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            return View(usuario);
         }
 
-        // GET: Usuarios/Delete/5
+        // GET: Mensajeria/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,34 +115,34 @@ namespace Proyecto.Controllers
                 return NotFound();
             }
 
-            var usuario = await _context.Usuarios
-                .FirstOrDefaultAsync(m => m.IdUsuario == id);
-            if (usuario == null)
+            var contactModel = await _context.Contacts
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (contactModel == null)
             {
                 return NotFound();
             }
 
-            return View(usuario);
+            return View(contactModel);
         }
 
-        // POST: Usuarios/Delete/5
+        // POST: Mensajeria/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario != null)
+            var contactModel = await _context.Contacts.FindAsync(id);
+            if (contactModel != null)
             {
-                _context.Usuarios.Remove(usuario);
+                _context.Contacts.Remove(contactModel);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UsuarioExists(int id)
+        private bool ContactModelExists(int id)
         {
-            return _context.Usuarios.Any(e => e.IdUsuario == id);
+            return _context.Contacts.Any(e => e.Id == id);
         }
     }
 }

@@ -1,0 +1,34 @@
+﻿@model Proyecto.Models.ContactModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container mt-5">
+    <h1 class="mb-4">@ViewData["Title"] ContactModel</h1>
+
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0">ContactModel Details</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-4">Name</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Name)</dd>
+
+                <dt class="col-sm-4">Email</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Email)</dd>
+
+                <dt class="col-sm-4">Subject</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Subject)</dd>
+
+                <dt class="col-sm-4">Message</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Message)</dd>
+            </dl>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Edit</a>
+            <a asp-action="Index" class="btn btn-secondary ml-2">Back to List</a>
+        </div>
+    </div>
+</div>
