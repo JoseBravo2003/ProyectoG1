@@ -7,6 +7,8 @@
         public string Correo { get; set; }
         public string clave { get; set; } // 'clave' en minúscula
 
+        public string Role { get; set; }
+
        // Propiedades adicionales para el historial de compras
        public List<PurchaseHistory> PurchaseHistory { get; set; }
     }

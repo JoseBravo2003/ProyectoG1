@@ -55,7 +55,7 @@ namespace Proyecto.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdUsuario,NombreCompleto,Correo,clave")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("IdUsuario,NombreCompleto,Correo,clave,Role")] Usuario usuario)
         {  
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
@@ -83,7 +83,7 @@ namespace Proyecto.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,NombreCompleto,Correo,clave")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,NombreCompleto,Correo,clave,Role")] Usuario usuario)
         {
             if (id != usuario.IdUsuario)
             {
@@ -152,11 +152,11 @@ namespace Proyecto.Controllers
             var usuarios = await _context.Usuarios.ToListAsync();
 
             var csvBuilder = new StringBuilder();
-            csvBuilder.AppendLine("NombreCompleto,Correo,Clave"); // Encabezado CSV
+            csvBuilder.AppendLine("NombreCompleto,Correo,Clave,Role"); // Encabezado CSV
 
             foreach (var usuario in usuarios)
             {
-                csvBuilder.AppendLine($"{usuario.NombreCompleto},{usuario.Correo},{usuario.clave}");
+                csvBuilder.AppendLine($"{usuario.NombreCompleto},{usuario.Correo},{usuario.clave},{usuario.Role}");
             }
 
             var byteArray = Encoding.UTF8.GetBytes(csvBuilder.ToString());

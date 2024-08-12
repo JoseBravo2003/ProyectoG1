@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Proyecto.Models.Comida>
+﻿@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<Proyecto.Models.Comida>
 
 @{
     ViewData["Title"] = "Lista de Comidas";
@@ -79,9 +80,13 @@
         <h1>@ViewData["Title"]</h1>
 
         <!-- OCULTAR PARA USUARIO -->
-        <p>
-            <a asp-action="Create" class="btn btn-add">Agregar Comida</a>
+        @if (User.IsInRole("Admin"))
+        {
+
+            <p>
+                <a asp-action="Create" class="btn btn-add">Agregar Comida</a>
         </p>
+        }
         <!-- ------------------------------------ -->
 
 
@@ -95,7 +100,10 @@
                     <th>Imagen</th>
                     <th>Cantidad</th>
                     <!-- OCULTAR PARA USUARIO -->
-                    <th>Acciones</th>
+                    @if(User.IsInRole("Admin"))
+                    {
+                        <th>Acciones</th>
+                    }
                     <!---------------------------------------->
                     <th>Comprar</th>
                 </tr>
@@ -121,15 +129,23 @@
                         <td>@comida.Cantidad</td>
 
                         <!-- OCULTAR PARA USUARIO -->
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@comida.IdComida" class="btn btn-warning btn-sm">Editar</a>
+                                <a asp-action="Details" asp-route-id="@comida.IdComida" class="btn btn-info btn-sm">Detalles</a>
+                                <a asp-action="Delete" asp-route-id="@comida.IdComida" class="btn btn-danger btn-sm">Eliminar</a>
+                            </td>
+                            <!-- --------------------------------------------------------------------------------------------------- -->
+                        }
+                        <!--Boton de agregar al carrito-->
                         <td>
-                            <a asp-action="Edit" asp-route-id="@comida.IdComida" class="btn btn-warning btn-sm">Editar</a>
-                            <a asp-action="Details" asp-route-id="@comida.IdComida" class="btn btn-info btn-sm">Detalles</a>
-                            <a asp-action="Delete" asp-route-id="@comida.IdComida" class="btn btn-danger btn-sm">Eliminar</a>
+                            <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                                <input type="hidden" name="comidaId" value="@comida.IdComida" />
+                                <button type="submit" class="btn btn-success btn-sm">Añadir a Carrito</button>
+                            </form>
                         </td>
-                        <!-- --------------------------------------------------------------------------------------------------- -->
-                        <td>
-                            <a asp-action="Purchase" asp-route-id="@comida.IdComida" class="btn btn-success btn-sm">Añadir a Carrito</a>
-                        </td>
+
                     </tr>
                 }
             </tbody>

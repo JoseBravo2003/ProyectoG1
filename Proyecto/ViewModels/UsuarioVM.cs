@@ -12,6 +12,8 @@
         public string clave { get; set; }
 
         public string ConfirmarClave { get; set; }
+        public string Role { get; set; }
+
 
     }
 }

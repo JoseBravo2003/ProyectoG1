@@ -5,7 +5,7 @@
 namespace Proyecto.Migrations
 {
     /// <inheritdoc />
-    public partial class Primeramigración : Migration
+    public partial class PrimeraMigracion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -70,11 +70,40 @@ namespace Proyecto.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NombreCompleto = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Correo = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    clave = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    clave = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuario", x => x.IdUsuario);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cart",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    IdComida = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cart", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cart_Comida_IdComida",
+                        column: x => x.IdComida,
+                        principalTable: "Comida",
+                        principalColumn: "IdComida",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Cart_Usuario_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Usuario",
+                        principalColumn: "IdUsuario",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -84,7 +113,7 @@ namespace Proyecto.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PaymentType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    MaskedCardNumber = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    MaskedCardNumber = table.Column<string>(type: "nvarchar(19)", maxLength: 19, nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Qty = table.Column<int>(type: "int", nullable: false),
@@ -105,6 +134,16 @@ namespace Proyecto.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cart_IdComida",
+                table: "Cart",
+                column: "IdComida");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cart_UserId",
+                table: "Cart",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PurchaseHistories_UserId",
                 table: "PurchaseHistories",
                 column: "UserId");
@@ -114,7 +153,7 @@ namespace Proyecto.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Comida");
+                name: "Cart");
 
             migrationBuilder.DropTable(
                 name: "Contacts");
@@ -124,6 +163,9 @@ namespace Proyecto.Migrations
 
             migrationBuilder.DropTable(
                 name: "PurchaseHistories");
+
+            migrationBuilder.DropTable(
+                name: "Comida");
 
             migrationBuilder.DropTable(
                 name: "Usuario");

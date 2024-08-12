@@ -82,6 +82,7 @@
                     </div>
                 </div>
 
+                <!-- Formulario de pago con tarjeta -->
                 <div id="cardPayment" class="payment-method active">
                     <h3 class="text-center mb-3">Pay with Card</h3>
                     <form asp-controller="Payment" asp-action="Submit" method="post">
@@ -89,40 +90,42 @@
                             <label for="cardOwner" class="form-label">Card Owner</label>
                             <div class="input-icon">
                                 <i class="fas fa-user"></i>
-                                <input type="text" class="form-control" id="cardOwner" name="CardOwner" placeholder="Card Owner" />
+                                <input type="text" class="form-control" id="cardOwner" name="CardOwner" placeholder="Card Owner" required />
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="cardNumber" class="form-label">Card Number</label>
                             <div class="input-icon">
                                 <i class="fas fa-credit-card"></i>
-                                <input type="text" class="form-control" id="cardNumber" name="CardNumber" placeholder="Card Number" maxlength="16" />
+                                <input type="text" class="form-control" id="cardNumber" name="CardNumber" placeholder="Card Number" maxlength="16" required />
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="cvv" class="form-label">CVV</label>
                             <div class="input-icon">
                                 <i class="fas fa-lock"></i>
-                                <input type="text" class="form-control" id="cvv" name="CVV" placeholder="CVV" maxlength="3" />
+                                <input type="text" class="form-control" id="cvv" name="CVV" placeholder="CVV" maxlength="3" required />
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="expirationDate" class="form-label">Expiration Date</label>
                             <div class="input-icon">
                                 <i class="fas fa-calendar"></i>
-                                <input type="text" class="form-control" id="expirationDate" name="ExpirationDate" placeholder="MM/YY" maxlength="5" />
+                                <input type="text" class="form-control" id="expirationDate" name="ExpirationDate" placeholder="MM/YY" maxlength="5" required />
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="deliveryAddress" class="form-label">Delivery Address</label>
                             <div class="input-icon">
                                 <i class="fas fa-home"></i>
-                                <input type="text" class="form-control" id="deliveryAddress" name="DeliveryAddress" placeholder="Delivery Address" />
+                                <input type="text" class="form-control" id="deliveryAddress" name="DeliveryAddress" placeholder="Delivery Address" required />
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Confirm Payment</button>
                     </form>
                 </div>
+
+                <!-- Formulario de pago en efectivo -->
                 <div id="cashPayment" class="payment-method">
                     <h3 class="text-center mb-3">Pay with Cash</h3>
                     <form asp-controller="Payment" asp-action="SubmitCash" method="post">
@@ -130,7 +133,7 @@
                             <label for="deliveryAddressCash" class="form-label">Delivery Address</label>
                             <div class="input-icon">
                                 <i class="fas fa-home"></i>
-                                <input type="text" class="form-control" id="deliveryAddressCash" name="DeliveryAddress" placeholder="Delivery Address" />
+                                <input type="text" class="form-control" id="deliveryAddressCash" name="DeliveryAddress" placeholder="Delivery Address" required />
                             </div>
                         </div>
                         <input type="hidden" name="CardOwner" value="" />

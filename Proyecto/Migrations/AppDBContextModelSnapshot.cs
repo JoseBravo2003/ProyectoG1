@@ -21,6 +21,35 @@ namespace Proyecto.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Proyecto.Models.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IdComida")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdComida");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Cart", (string)null);
+                });
+
             modelBuilder.Entity("Proyecto.Models.Comida", b =>
                 {
                     b.Property<int>("IdComida")
@@ -136,8 +165,8 @@ namespace Proyecto.Migrations
 
                     b.Property<string>("MaskedCardNumber")
                         .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                        .HasMaxLength(19)
+                        .HasColumnType("nvarchar(19)");
 
                     b.Property<string>("OrderId")
                         .IsRequired()
@@ -196,6 +225,11 @@ namespace Proyecto.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("clave")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -204,6 +238,25 @@ namespace Proyecto.Migrations
                     b.HasKey("IdUsuario");
 
                     b.ToTable("Usuario", (string)null);
+                });
+
+            modelBuilder.Entity("Proyecto.Models.Cart", b =>
+                {
+                    b.HasOne("Proyecto.Models.Comida", "Comida")
+                        .WithMany()
+                        .HasForeignKey("IdComida")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Proyecto.Models.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Comida");
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Proyecto.Models.PurchaseHistory", b =>

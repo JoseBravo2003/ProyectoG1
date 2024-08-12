@@ -23,6 +23,10 @@
                 <th>
                     @Html.DisplayNameFor(model => model.clave)
                 </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Role)
+                </th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -38,6 +42,9 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.clave)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.IdUsuario" class="btn btn-warning btn-sm">Edit</a>

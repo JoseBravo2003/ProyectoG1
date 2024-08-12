@@ -49,7 +49,8 @@ namespace Proyecto.Controllers
             {
                 NombreCompleto = modelo.NombreCompleto,
                 Correo = modelo.Correo,
-                clave = modelo.clave
+                clave = modelo.clave,
+                Role ="Client"
             };
 
             await _appDbContext.Usuarios.AddAsync(usuario);
@@ -87,7 +88,8 @@ namespace Proyecto.Controllers
             List<Claim> claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, usuario_encontrado.IdUsuario.ToString()), // Agregado el NameIdentifier
-                new Claim(ClaimTypes.Name, usuario_encontrado.NombreCompleto)
+                new Claim(ClaimTypes.Name, usuario_encontrado.NombreCompleto),
+                new Claim(ClaimTypes.Role,usuario_encontrado.Role)
             };
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

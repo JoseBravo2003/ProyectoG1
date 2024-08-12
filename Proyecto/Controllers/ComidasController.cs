@@ -3,7 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Proyecto.Data;
 using Proyecto.Models;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace Proyecto.Controllers
 {
@@ -137,6 +141,35 @@ namespace Proyecto.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public IActionResult AddToCart(int productId)
+        {
+            // Buscar el producto en la tabla de Comidas
+            var product = _context.Comidas.FirstOrDefault(p => p.IdComida == productId);
+            if (product != null)
+            {
+                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                // Crear una nueva entrada en PurchaseHistory
+                var cartItem = new PurchaseHistory
+                {
+                    UserId = userId,
+                    ProductName = product.Nombre,  // Usar la propiedad correcta de Comida
+                    UnitPrice = product.Precio,
+                    Qty = 1,
+                    TotalPrice = product.Precio,  // TotalPrice es igual al precio aquí
+                    OrderId = Guid.NewGuid().ToString(), // Generar un nuevo ID de orden
+                    Status = "InCart"
+                };
+
+                _context.PurchaseHistories.Add(cartItem);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Cart"); // Redirige a la vista del carrito
+        }
+
 
         private bool ComidaExists(int id)
         {

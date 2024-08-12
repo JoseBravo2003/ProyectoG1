@@ -15,6 +15,9 @@ namespace Proyecto.Data
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Comida> Comidas { get; set; } // Agregado
 
+        public DbSet<Cart> Carts { get; set; } // Agregado
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -29,6 +32,7 @@ namespace Proyecto.Data
                 tb.Property(col => col.NombreCompleto).HasMaxLength(50);
                 tb.Property(col => col.Correo).HasMaxLength(50);
                 tb.Property(col => col.clave).HasMaxLength(50);
+                tb.Property(col => col.Role).HasMaxLength(50);
                 tb.ToTable("Usuario");
             });
 
@@ -40,7 +44,7 @@ namespace Proyecto.Data
                   .ValueGeneratedOnAdd();
 
                 tb.Property(col => col.PaymentType).HasMaxLength(50);
-                tb.Property(col => col.MaskedCardNumber).HasMaxLength(16);
+                tb.Property(col => col.MaskedCardNumber).HasMaxLength(19);
                 tb.Property(col => col.ProductName).HasMaxLength(100);
                 tb.Property(col => col.UnitPrice).HasColumnType("decimal(18,2)");
                 tb.Property(col => col.Qty).HasColumnType("int");
@@ -70,6 +74,28 @@ namespace Proyecto.Data
                 tb.Property(col => col.Cantidad).HasColumnType("int").IsRequired();
 
                 tb.ToTable("Comida");
+            });
+
+            // Configuración de la entidad ShoppingCartItem
+            modelBuilder.Entity<Cart>(tb =>
+            {
+                tb.HasKey(col => col.Id);
+                tb.Property(col => col.Id)
+                  .UseIdentityColumn()
+                  .ValueGeneratedOnAdd();
+
+                tb.Property(col => col.Quantity).HasColumnType("int").IsRequired();
+                tb.Property(col => col.UnitPrice).HasColumnType("decimal(18,2)").IsRequired();
+
+                tb.HasOne(col => col.Usuario)
+                  .WithMany()
+                  .HasForeignKey(col => col.UserId);
+
+                tb.HasOne(col => col.Comida)
+                  .WithMany()
+                  .HasForeignKey(col => col.IdComida);
+
+                tb.ToTable("Cart");
             });
         }
     }
