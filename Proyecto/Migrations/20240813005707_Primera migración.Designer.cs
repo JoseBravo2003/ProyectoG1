@@ -11,8 +11,8 @@ using Proyecto.Data;
 namespace Proyecto.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240812200956_Primera Migracion")]
-    partial class PrimeraMigracion
+    [Migration("20240813005707_Primera migración")]
+    partial class Primeramigración
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

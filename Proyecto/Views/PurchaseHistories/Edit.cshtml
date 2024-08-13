@@ -1,0 +1,76 @@
+﻿@model Proyecto.Models.PurchaseHistory
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 class="mb-4">Edit Purchase History</h1>
+
+<hr />
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <form asp-action="Edit" class="shadow p-4 rounded bg-light">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group mb-3">
+                <label asp-for="PaymentType" class="form-label"></label>
+                <input asp-for="PaymentType" class="form-control" />
+                <span asp-validation-for="PaymentType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="MaskedCardNumber" class="form-label"></label>
+                <input asp-for="MaskedCardNumber" class="form-control" />
+                <span asp-validation-for="MaskedCardNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ProductName" class="form-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="UnitPrice" class="form-label"></label>
+                <input asp-for="UnitPrice" class="form-control" />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Qty" class="form-label"></label>
+                <input asp-for="Qty" class="form-control" />
+                <span asp-validation-for="Qty" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="TotalPrice" class="form-label"></label>
+                <input asp-for="TotalPrice" class="form-control" />
+                <span asp-validation-for="TotalPrice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="OrderId" class="form-label"></label>
+                <input asp-for="OrderId" class="form-control" />
+                <span asp-validation-for="OrderId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Status" class="form-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="UserId" class="form-label"></label>
+                <select asp-for="UserId" class="form-select" asp-items="ViewBag.UserId"></select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>

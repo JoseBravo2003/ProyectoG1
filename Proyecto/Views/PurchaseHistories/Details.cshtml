@@ -1,0 +1,42 @@
+﻿@model Proyecto.Models.PurchaseHistory
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Purchase History Details</h1>
+
+<hr />
+<dl class="row">
+    <dt class="col-sm-2">Payment Type</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.PaymentType)</dd>
+
+    <dt class="col-sm-2">Masked Card Number</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.MaskedCardNumber)</dd>
+
+    <dt class="col-sm-2">Product Name</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.ProductName)</dd>
+
+    <dt class="col-sm-2">Unit Price</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.UnitPrice)</dd>
+
+    <dt class="col-sm-2">Quantity</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.Qty)</dd>
+
+    <dt class="col-sm-2">Total Price</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.TotalPrice)</dd>
+
+    <dt class="col-sm-2">Order ID</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.OrderId)</dd>
+
+    <dt class="col-sm-2">Status</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.Status)</dd>
+
+    <dt class="col-sm-2">Usuario</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.Usuario.IdUsuario)</dd>
+</dl>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
