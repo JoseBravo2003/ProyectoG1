@@ -53,32 +53,27 @@ public class ProfileController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> EditUser(Usuario model)
     {
-     
-        
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var user = await _context.Usuarios.FindAsync(userId);
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+        var user = await _context.Usuarios.FindAsync(userId);
 
-            if (user == null)
-            {
-                return NotFound();
-            }
+        if (user == null)
+        {
+            return NotFound();
+        }
 
-            user.NombreCompleto = model.NombreCompleto;
-            user.Correo = model.Correo;
+        user.NombreCompleto = model.NombreCompleto;
+        user.Correo = model.Correo;
 
-            // Update password only if it's provided and is not empty
-            if (!string.IsNullOrWhiteSpace(model.clave))
-            {
-                user.clave = model.clave; // Consider hashing the password for security
-            }
+        // Update password only if it's provided and is not empty
+        if (!string.IsNullOrWhiteSpace(model.clave))
+        {
+            user.clave = model.clave; // Consider hashing the password for security
+        }
 
-            _context.Usuarios.Update(user);
-            await _context.SaveChangesAsync();
+        _context.Usuarios.Update(user);
+        await _context.SaveChangesAsync();
 
-            return RedirectToAction("UserProfile");
-        
-
-        //return View(model);
+        return RedirectToAction("UserProfile");
     }
 
     // GET: /Profile/DownloadUserProfilePdf
@@ -96,24 +91,30 @@ public class ProfileController : Controller
 
         using (var memoryStream = new MemoryStream())
         {
-            var document = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4);
+            var document = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4.Rotate()); // Rotar la página para mayor ancho
             PdfWriter.GetInstance(document, memoryStream);
             document.Open();
 
             // Title and User Info
-            document.Add(new Paragraph($"User Profile - {user.NombreCompleto}", iTextSharp.text.FontFactory.GetFont(iTextSharp.text.FontFactory.HELVETICA_BOLD, 16)));
-            document.Add(new Paragraph($"Email: {user.Correo}", iTextSharp.text.FontFactory.GetFont(iTextSharp.text.FontFactory.HELVETICA, 12)));
-            document.Add(new Paragraph($"Password: {user.clave}", iTextSharp.text.FontFactory.GetFont(iTextSharp.text.FontFactory.HELVETICA, 12)));
+            var titleFont = iTextSharp.text.FontFactory.GetFont(iTextSharp.text.FontFactory.HELVETICA_BOLD, 16);
+            var infoFont = iTextSharp.text.FontFactory.GetFont(iTextSharp.text.FontFactory.HELVETICA, 12);
+            document.Add(new Paragraph($"User Profile - {user.NombreCompleto}", titleFont));
+            document.Add(new Paragraph($"Email: {user.Correo}", infoFont));
+            document.Add(new Paragraph($"Password: {user.clave}", infoFont));
             document.Add(new Paragraph("\n"));
 
             // Purchase History Title
-            document.Add(new Paragraph("Purchase History", iTextSharp.text.FontFactory.GetFont(iTextSharp.text.FontFactory.HELVETICA_BOLD, 14)));
+            var purchaseHistoryFont = iTextSharp.text.FontFactory.GetFont(iTextSharp.text.FontFactory.HELVETICA_BOLD, 14);
+            document.Add(new Paragraph("Purchase History", purchaseHistoryFont));
             document.Add(new Paragraph("\n"));
 
             // Table
             var table = new PdfPTable(9);
             table.WidthPercentage = 100;
-            table.SetWidths(new float[] { 1f, 1.5f, 2f, 1.5f, 1f, 1.5f, 1.5f, 2f, 1f });
+            table.SetWidths(new float[] { 1.5f, 2.5f, 3f, 1.5f, 1f, 1.5f, 1.5f, 3f, 1.5f }); // Set custom column widths
+            table.SpacingBefore = 10f; // Space before table
+            table.SpacingAfter = 10f; // Space after table
+            table.DefaultCell.Padding = 10f; // Increased cell padding
 
             // Table Headers
             AddCellToTable(table, "Payment Type", true, new BaseColor(200, 200, 200)); // Light gray background
@@ -166,7 +167,7 @@ public class ProfileController : Controller
             cell.BorderWidth = 0.5f; // Thinner border for headers
             cell.HorizontalAlignment = Element.ALIGN_CENTER;
             cell.VerticalAlignment = Element.ALIGN_MIDDLE;
-            cell.Padding = 6f; // Padding for header cells
+            cell.Padding = 10f; // Increased padding for header cells
         }
         else
         {
@@ -175,9 +176,9 @@ public class ProfileController : Controller
             cell.BorderWidth = 0.5f;
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.VerticalAlignment = Element.ALIGN_MIDDLE;
-            cell.Padding = 6f; // Padding for data cells
+            cell.Padding = 10f; // Increased padding for data cells
+            cell.MinimumHeight = 30f; // Minimum height for each cell to increase row height
         }
         table.AddCell(cell);
     }
-
 }

@@ -14,12 +14,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         .profile-container {
-            max-width: 800px;
+            max-width: 1200px; /* Aumenta el ancho máximo */
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .profile-container h3 {
+                margin-top: 0;
+                margin-bottom: 20px;
+            }
+
+        .table-responsive {
+            margin-top: 20px;
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -56,37 +69,39 @@
                 <div class="tab-pane fade" id="purchase-history" role="tabpanel" aria-labelledby="purchase-history-tab">
                     <h3 class="text-center my-4">Purchase History</h3>
                     <a href="@Url.Action("DownloadUserProfilePdf", "Profile")" class="btn btn-primary mb-4">Download PDF</a>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Payment Type</th>
-                                <th>Card Number</th>
-                                <th>Product Name</th>
-                                <th>Unit Price</th>
-                                <th>Qty</th>
-                                <th>Total Price</th>
-                                <th>Order ID</th>
-                                <th>Address</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var purchase in Model.PurchaseHistory)
-                            {
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
                                 <tr>
-                                    <td>@purchase.PaymentType</td>
-                                    <td>@purchase.MaskedCardNumber</td>
-                                    <td>@purchase.ProductName</td>
-                                    <td>@purchase.UnitPrice.ToString("C")</td>
-                                    <td>@purchase.Qty</td>
-                                    <td>@purchase.TotalPrice.ToString("C")</td>
-                                    <td>@purchase.OrderId</td>
-                                    <td>@purchase.Address</td>
-                                    <td>@purchase.Status</td>
+                                    <th>Payment Type</th>
+                                    <th>Card Number</th>
+                                    <th>Product Name</th>
+                                    <th>Unit Price</th>
+                                    <th>Qty</th>
+                                    <th>Total Price</th>
+                                    <th>Order ID</th>
+                                    <th>Address</th>
+                                    <th>Status</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var purchase in Model.PurchaseHistory)
+                                {
+                                    <tr>
+                                        <td>@purchase.PaymentType</td>
+                                        <td>@purchase.MaskedCardNumber</td>
+                                        <td>@purchase.ProductName</td>
+                                        <td>@purchase.UnitPrice.ToString("C")</td>
+                                        <td>@purchase.Qty</td>
+                                        <td>@purchase.TotalPrice.ToString("C")</td>
+                                        <td>@purchase.OrderId</td>
+                                        <td>@purchase.Address</td>
+                                        <td>@purchase.Status</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
