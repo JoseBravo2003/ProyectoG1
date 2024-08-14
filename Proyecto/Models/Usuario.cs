@@ -23,7 +23,9 @@
         public int Qty { get; set; }
         public decimal TotalPrice { get; set; }
         public string OrderId { get; set; }
+        public string Address { get; set; }
         public string Status { get; set; }
+        
 
         // Clave externa para relacionar con Usuario
         public int UserId { get; set; }

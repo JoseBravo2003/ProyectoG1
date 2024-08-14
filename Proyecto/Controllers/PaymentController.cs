@@ -67,7 +67,8 @@ public class PaymentController : Controller
                 Qty = item.Quantity,
                 TotalPrice = item.Quantity * item.UnitPrice,
                 OrderId = orderId,
-                Status = "Completed"
+                Address = model.DeliveryAddress,
+                Status = "Pendiente"
             };
 
             _context.PurchaseHistories.Add(purchaseHistory);
@@ -101,6 +102,7 @@ public class PaymentController : Controller
 
         // Obtener los ítems del carrito del usuario
         var cartItems = _context.Carts
+                                .Include(sci => sci.Comida) // Asegúrate de incluir la navegación de 'Comida'
                                 .Where(sci => sci.UserId == userId)
                                 .ToList();
 
@@ -115,12 +117,13 @@ public class PaymentController : Controller
                 UserId = userId,
                 PaymentType = model.PaymentType,
                 MaskedCardNumber = "N/A",  // No es necesario para efectivo
-                ProductName = item.Comida.Nombre,
+                ProductName = item.Comida?.Nombre ?? "Producto desconocido", // Manejar posible nulo
                 UnitPrice = item.UnitPrice,
                 Qty = item.Quantity,
                 TotalPrice = item.Quantity * item.UnitPrice,
                 OrderId = orderId,
-                Status = "Completed"
+                Address = model.DeliveryAddress,
+                Status = "Pendiente"
             };
 
             _context.PurchaseHistories.Add(purchaseHistory);
@@ -134,6 +137,7 @@ public class PaymentController : Controller
 
         return RedirectToAction("Success");
     }
+
 
     public IActionResult Success()
     {

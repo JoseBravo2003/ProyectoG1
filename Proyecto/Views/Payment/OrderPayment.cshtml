@@ -85,7 +85,7 @@
                 <!-- Formulario de pago con tarjeta -->
                 <div id="cardPayment" class="payment-method active">
                     <h3 class="text-center mb-3">Pay with Card</h3>
-                    <form asp-controller="Payment" asp-action="Submit" method="post">
+                    <form asp-controller="Payment" asp-action="Submit" method="post" onsubmit="return validateCardForm()">
                         <div class="mb-3">
                             <label for="cardOwner" class="form-label">Card Owner</label>
                             <div class="input-icon">
@@ -97,21 +97,21 @@
                             <label for="cardNumber" class="form-label">Card Number</label>
                             <div class="input-icon">
                                 <i class="fas fa-credit-card"></i>
-                                <input type="text" class="form-control" id="cardNumber" name="CardNumber" placeholder="Card Number" maxlength="16" required />
+                                <input type="text" class="form-control" id="cardNumber" name="CardNumber" placeholder="Card Number" maxlength="12" required oninput="validateCardNumber(this)" />
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="cvv" class="form-label">CVV</label>
                             <div class="input-icon">
                                 <i class="fas fa-lock"></i>
-                                <input type="text" class="form-control" id="cvv" name="CVV" placeholder="CVV" maxlength="3" required />
+                                <input type="text" class="form-control" id="cvv" name="CVV" placeholder="CVV" maxlength="3" required oninput="validateCVV(this)" />
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="expirationDate" class="form-label">Expiration Date</label>
                             <div class="input-icon">
                                 <i class="fas fa-calendar"></i>
-                                <input type="text" class="form-control" id="expirationDate" name="ExpirationDate" placeholder="MM/YY" maxlength="5" required />
+                                <input type="text" class="form-control" id="expirationDate" name="ExpirationDate" placeholder="MM/YY" maxlength="5" required oninput="validateExpirationDate(this)" />
                             </div>
                         </div>
                         <div class="mb-3">
@@ -144,7 +144,6 @@
                         <button type="submit" class="btn btn-primary w-100">Confirm Order</button>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
@@ -166,6 +165,43 @@
                 }
             });
         });
+
+        function validateCardNumber(input) {
+            let value = input.value.replace(/\D/g, ''); // Remove non-digit characters
+            if (value.length > 12) {
+                value = value.slice(0, 12); // Limit to 12 digits
+            }
+            input.value = value;
+        }
+
+        function validateCVV(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 3) {
+                input.value = value.slice(0, 3);
+            } else {
+                input.value = value;
+            }
+        }
+
+        function validateExpirationDate(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 4) {
+                input.value = value.slice(0, 2) + '/' + value.slice(2, 4);
+            } else if (value.length > 2) {
+                input.value = value.slice(0, 2) + '/' + value.slice(2);
+            } else {
+                input.value = value;
+            }
+        }
+
+        function validateCardForm() {
+            const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
+            if (cardNumber.length !== 12) {
+                alert('Card number must be 12 digits long.');
+                return false;
+            }
+            return true;
+        }
     </script>
 </body>
 </html>
