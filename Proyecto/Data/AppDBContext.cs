@@ -98,5 +98,6 @@ namespace Proyecto.Data
                 tb.ToTable("Cart");
             });
         }
+       
     }
 }

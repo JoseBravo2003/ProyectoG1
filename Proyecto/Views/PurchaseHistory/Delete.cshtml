@@ -1,0 +1,71 @@
+﻿@model Proyecto.Models.PurchaseHistory
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="container mt-5">
+    <h1 class="mb-4">@ViewData["Title"]</h1>
+    <div class="alert alert-warning">
+        <h4>Are you sure you want to delete this?</h4>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">PurchaseHistory Details</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.PaymentType)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.PaymentType)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.MaskedCardNumber)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.MaskedCardNumber)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.ProductName)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.ProductName)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.UnitPrice)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.UnitPrice)</dd>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Qty)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Qty)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.TotalPrice)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.TotalPrice)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.OrderId)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.OrderId)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Address)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Address)</dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Status)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Status)</dd>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Usuario)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Usuario.IdUsuario)</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Delete" class="btn btn-danger" /> |
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </form>
+        </div>
+    </div>
+</div>
