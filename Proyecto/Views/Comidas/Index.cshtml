@@ -2,7 +2,7 @@
 @model IEnumerable<Proyecto.Models.Comida>
 
 @{
-    ViewData["Title"] = "Lista de Comidas";
+    ViewData["Title"] = "Food List";
 }
 
 <!DOCTYPE html>
@@ -84,7 +84,7 @@
         {
 
             <p>
-                <a asp-action="Create" class="btn btn-add">Agregar Comida</a>
+                <a asp-action="Create" class="btn btn-add">Add Food</a>
         </p>
         }
         <!-- ------------------------------------ -->
@@ -93,16 +93,16 @@
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                    <th>Categoría</th>
-                    <th>Imagen</th>
-                    <th>Cantidad</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Image</th>
+                    <th>Quantity</th>
                     <!-- OCULTAR PARA USUARIO -->
                     @if(User.IsInRole("Admin"))
                     {
-                        <th>Acciones</th>
+                        <th>Actions</th>
                     }
                     <!---------------------------------------->
                     <th>Comprar</th>
@@ -132,9 +132,9 @@
                         @if (User.IsInRole("Admin"))
                         {
                             <td>
-                                <a asp-action="Edit" asp-route-id="@comida.IdComida" class="btn btn-warning btn-sm">Editar</a>
-                                <a asp-action="Details" asp-route-id="@comida.IdComida" class="btn btn-info btn-sm">Detalles</a>
-                                <a asp-action="Delete" asp-route-id="@comida.IdComida" class="btn btn-danger btn-sm">Eliminar</a>
+                                <a asp-action="Edit" asp-route-id="@comida.IdComida" class="btn btn-warning btn-sm">Edit</a>
+                                <a asp-action="Details" asp-route-id="@comida.IdComida" class="btn btn-info btn-sm">Details</a>
+                                <a asp-action="Delete" asp-route-id="@comida.IdComida" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                             <!-- --------------------------------------------------------------------------------------------------- -->
                         }

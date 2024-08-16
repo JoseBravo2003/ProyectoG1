@@ -1,67 +1,197 @@
 ﻿<!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        .section-title {
-            margin-bottom: 1.5rem;
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
         }
-        .story-image-container img,
-        .mission-image-container img {
-            width: 100%;
-            max-width: 300px; /* Tamaño máximo de las imágenes */
-            height: auto;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, opacity 0.3s ease;
+
+        .navbar {
+            margin-bottom: 2rem;
         }
-        .story-image-container img:hover,
-        .mission-image-container img:hover {
-            transform: scale(1.1); /* Efecto de zoom */
-            opacity: 0.8; /* Efecto de desvanecimiento */
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
         }
-        .story-image-container,
-        .mission-image-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 1rem;
+
+        .hero-section {
+            background: url('https://www.donwordpress.com/blog/wp-content/uploads/2018/07/restaurant.jpg') no-repeat center center;
+            background-size: cover;
+            color: #ffffff;
+            padding: 7rem 0;
+            text-align: center;
         }
-        /* Animación de desvanecimiento de entrada */
+
+            .hero-section h1 {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-section p {
+                font-size: 1.25rem;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+
         .fade-in {
             opacity: 0;
-            animation: fadeIn 2s forwards;
+            transition: opacity 2s ease-in-out;
         }
-        
+
+            .fade-in.visible {
+                opacity: 1;
+            }
+
+        .menu-section {
+            padding: 4rem 0;
+            background-color: #f8f9fa;
+        }
+
+            .menu-section h2 {
+                margin-bottom: 2rem;
+            }
+
+        .menu-item {
+            background: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+            .menu-item:hover {
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            }
+
+        .services-section {
+            padding: 4rem 0;
+            background-color: #ffffff;
+        }
+
+            .services-section h2 {
+                margin-bottom: 2rem;
+            }
+
+        .service-item {
+            padding: 1.5rem;
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+            .service-item:hover {
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            }
+
+        .contact-section {
+            background-color: #f8f9fa;
+            padding: 4rem 0;
+        }
+
+            .contact-section h2 {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .contact-section p {
+                font-size: 1.125rem;
+            }
+
+        .footer {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 1.5rem 0;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <div class="container my-5">
-        <div class="row">
-            <div class="col-lg-6">
-                <h2 class="section-title">Our Story</h2>
-                <div class="story-image-container">
-                    <!-- Imagen actualizada para "Our Story" con animación -->
-                    <img src="https://img.freepik.com/foto-gratis/tacos-tortilla-amarillo-hamburguesa_1150-7027.jpg" alt="Our Story" class="img-fluid rounded fade-in">
+
+    <!-- Hero Section -->
+    <div id="hero" class="hero-section">
+        <h1>Welcome to Food Order Flow</h1>
+        <p>Experience the best of gastronomy with our delicious and freshly prepared meals. Join us for an unforgettable dining experience.</p>
+    </div>
+
+    <!-- Menu Section -->
+    <div id="menu" class="menu-section text-center">
+        <div class="container">
+            <h2>Our Menu</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="menu-item">
+                        <h4>Delicious Tacos</h4>
+                        <p>A blend of fresh ingredients wrapped in a warm tortilla. Served with salsa and guacamole.</p>
+                        <p><strong>₡1500</strong></p>
+                       
+                    </div>
                 </div>
-                <p>Welcome to [Restaurant Name], where we bring the best of online food ordering right to your door. Our journey began with a passion for delicious food and a commitment to exceptional service. We aim to make every meal an unforgettable experience.</p>
-                <p>Our team works tirelessly to ensure that every order is prepared with the highest quality ingredients and delivered with care. We believe in bringing people together through great food and exceptional service.</p>
-            </div>
-            <div class="col-lg-6">
-                <h2 class="section-title">Our Mission</h2>
-                <div class="mission-image-container">
-                    <!-- Imagen para "Our Mission" con animación -->
-                    <img src="https://img.freepik.com/foto-gratis/hot-dog-ternera-parrilla-snack-ketchup-ia-generativa_188544-7829.jpg" alt="Our Mission" class="img-fluid rounded fade-in">
+                <div class="col-md-4">
+                    <div class="menu-item">
+                        <h4>Classic Burger</h4>
+                        <p>Juicy beef patty with lettuce, tomato, and our secret sauce. Comes with a side of fries.</p>
+                        <p><strong>₡2000</strong></p>
+                        
+                    </div>
                 </div>
-                <p>At [Restaurant Name], our mission is simple: to provide delicious, high-quality food to our customers while ensuring a seamless and enjoyable online ordering experience. We strive to be the best in the industry by constantly innovating and improving our service.</p>
-                <p>We are committed to sustainability and sourcing our ingredients responsibly. Our goal is to create a positive impact on our community and the environment through our business practices.</p>
+                <div class="col-md-4">
+                    <div class="menu-item">
+                        <h4>Fresh Salad</h4>
+                        <p>A mix of seasonal greens, cherry tomatoes, cucumbers, and our house vinaigrette.</p>
+                        <p><strong>₡1000</strong></p>
+                        
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Services Section -->
+    <div id="services" class="services-section text-center">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <h4>Online Ordering</h4>
+                        <p>Order your favorite meals online and have them delivered straight to your door.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <h4>Delivery and Pickup</h4>
+                        <p>Fast and reliable delivery service or choose curbside pickup if you prefer.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <h4>Coming Soon: Catering</h4>
+                        <p>We will offer catering services for your special events and gatherings.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+ 
+
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Fade in effect for elements with the class 'fade-in'
+    </script>
 </body>
 </html>
